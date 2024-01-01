@@ -6,7 +6,7 @@ class AppResponse {
   static error(err: AppError, res: Response) {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || "error";
-    if (config.server.nodeEnv == "development") {
+    if (config.get("environment") === "development") {
       res.status(err.statusCode).json({
         code: err.statusCode,
         message: err.message,

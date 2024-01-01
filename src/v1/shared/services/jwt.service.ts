@@ -1,21 +1,25 @@
 import jwt from "jsonwebtoken";
-import { IAuthenticatedUserPayload } from "./interfaces/auth_user.interface";
 import config from "config";
+import { IAuthUserPayload } from "../interfaces/auth_user.interface";
 
 export const AuthTokenService = {
-  verify: (token: string): Promise<IAuthenticatedUserPayload> => {
+  verify: (token: string): Promise<IAuthUserPayload> => {
     return new Promise((resolve, reject) => {
-      jwt.verify(token, config.jwt.secret as string, (err, decoded) => {
-        if (err) {
-          return reject(err);
+      jwt.verify(
+        token,
+        config.get("jwt")["secret"] as string,
+        (err, decoded) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(decoded as IAuthUserPayload);
         }
-        return resolve(decoded as IAuthenticatedUserPayload);
-      });
+      );
     });
   },
-  sign: (payload: IAuthenticatedUserPayload): string => {
-    return jwt.sign(payload, config.jwt.secret as string, {
-      expiresIn: config.jwt.expiry,
+  sign: (payload: IAuthUserPayload): string => {
+    return jwt.sign(payload, config.get("jwt")["secret"] as string, {
+      expiresIn: config.get("jwt")["expiresIn"],
     });
   },
 };

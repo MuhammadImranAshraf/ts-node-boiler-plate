@@ -1,8 +1,17 @@
 import { Request } from "express";
-import { ICustomer } from "v1/interfaces/customer.interface";
+import { IUser } from "v1/interfaces/user.interface";
 
-interface IAuthenticatedRequest extends Request {
-  customer?: ICustomer;
+interface IVRequest extends Request {
+  validatedBody?: any;
+  validatedParams?: any;
+  validatedQuery?: any;
 }
 
-export default IAuthenticatedRequest;
+interface IARequest extends IVRequest {
+  user?: IUser;
+  validatedBody?: any;
+  validatedParams?: any;
+  validatedQuery?: any;
+}
+
+export { IARequest, IVRequest };

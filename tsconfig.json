@@ -5,10 +5,10 @@
     "esModuleInterop": true,
     "target": "ES2020",
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "outDir": "build",
     "paths": {
-      "@config": ["/config/*"],
       "@utils": ["/utils/*"],
       "@models": ["/models/*"]
     }
